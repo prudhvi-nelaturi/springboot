@@ -7,6 +7,7 @@ public class customerDTO {
 
     private long id;
 
+//    @NotBlank(message = "Name is required")
     private String name;
 
 

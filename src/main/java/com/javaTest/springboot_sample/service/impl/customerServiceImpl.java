@@ -20,9 +20,10 @@ public class customerServiceImpl implements customerService {
     private customerMapper customerMapper;
 
     @Override
-    public customerDTO createCustomer(customerDTO customerDTO){
+    public long createCustomer(customerDTO customerDTO){
         customer customer = customerMapper.toEntity(customerDTO);
-        return customerMapper.toDto(customerRepository.save(customer));
+        customerDTO result = customerMapper.toDto(customerRepository.save(customer));
+        return result.getId();
 
     }
 }
