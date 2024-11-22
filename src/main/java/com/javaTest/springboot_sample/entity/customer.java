@@ -18,8 +18,10 @@ public class customer {
 
     private String industry;
     private int company_size;
+
+    @Column(unique = true, nullable = false)
     private String customer_email;
-    private int customer_phone_number;
+    private String customer_phone_number;
     private String customer_address;
     private String other_customer_data;
 
@@ -47,11 +49,11 @@ public class customer {
         this.customer_email = customer_email;
     }
 
-    public int getCustomer_phone_number() {
+    public String getCustomer_phone_number() {
         return customer_phone_number;
     }
 
-    public void setCustomer_phone_number(int customer_phone_number) {
+    public void setCustomer_phone_number(String customer_phone_number) {
         this.customer_phone_number = customer_phone_number;
     }
 
