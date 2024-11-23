@@ -24,6 +24,15 @@ public class customer {
     private String customer_phone_number;
     private String customer_address;
     private String other_customer_data;
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getIndustry() {
         return industry;

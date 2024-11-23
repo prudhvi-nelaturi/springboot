@@ -18,6 +18,7 @@ public class customerMapper {
         dto.setCustomer_phone_number(customer.getCustomer_phone_number());
         dto.setCustomer_address(customer.getCustomer_address());
         dto.setOther_customer_data(customer.getOther_customer_data());
+        dto.setStatus(customer.getStatus());
 
         return dto;
     }
@@ -33,6 +34,7 @@ public class customerMapper {
         cust.setCustomer_phone_number(dto.getCustomer_phone_number());
         cust.setCustomer_address(dto.getCustomer_address());
         cust.setOther_customer_data(dto.getOther_customer_data());
+        cust.setStatus(dto.getStatus());
 
         return cust;
     }
