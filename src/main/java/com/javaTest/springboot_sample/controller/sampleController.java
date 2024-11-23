@@ -7,7 +7,6 @@ import com.sun.jdi.request.InvalidRequestStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.javaTest.springboot_sample.service.customerService;
 
@@ -50,6 +49,14 @@ public class sampleController {
         if(customerDto.getCustomer_phone_number() == null || customerDto.getCustomer_phone_number().isEmpty()){
             throw new InvalidRequestStateException("Please enter the phone number.");
         }
+        if(customerDto.getStatus() == null || customerDto.getStatus().isEmpty()){
+            throw new InvalidRequestStateException("Please enter the phone number.");
+        }
+        if(!customerDto.getStatus().equals("enabled")){
+            if(!customerDto.getStatus().equals("disabled")){
+                throw new InvalidRequestStateException("status should be either enabled or disabled");
+            }
+        }
 //        if (customerService.isEmailExists(customerDto.getCustomer_email())) {
 //            throw new InvalidRequestStateException("The email ID already exists in the database.");
 //        }
@@ -59,6 +66,15 @@ public class sampleController {
     @PutMapping("{id}")
     public ResponseEntity<customerDTO> updateCustomer(@PathVariable long id, @RequestBody customerDTO customerDTO){
         return ResponseEntity.ok(customerService.updateCustomer(id, customerDTO));
+
+    }
+
+    @PatchMapping("{id}")
+    public ResponseEntity<String> statusToggle(@PathVariable long id, @RequestParam String status){
+        if (!status.equalsIgnoreCase("enabled") && !status.equalsIgnoreCase("disabled")) {
+            throw new IllegalArgumentException("Invalid status value: " + status);
+        }
+        return ResponseEntity.ok(customerService.statusToggle(id, status));
 
     }
 

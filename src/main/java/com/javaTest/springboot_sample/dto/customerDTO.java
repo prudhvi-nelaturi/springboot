@@ -17,5 +17,6 @@ public class customerDTO {
     private String customer_phone_number;
     private String customer_address;
     private String other_customer_data;
+    private String status;
 
 }

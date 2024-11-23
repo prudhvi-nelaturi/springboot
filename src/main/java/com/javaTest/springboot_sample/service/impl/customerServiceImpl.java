@@ -7,6 +7,7 @@ import com.javaTest.springboot_sample.service.customerService;
 import com.javaTest.springboot_sample.repository.customerRepository;
 import com.javaTest.springboot_sample.mapper.customerMapper;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
@@ -38,11 +39,10 @@ public class customerServiceImpl implements customerService {
     @Override
     public customerDTO updateCustomer(long id, customerDTO customerDTO) {
 
-        Optional<customer> cust = customerRepository.findById(id);
-        System.out.println(cust);
-        customer customer = null;
-        if (cust.isPresent()) {
-            customer = cust.get();
+        customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Customer with ID " + id + " not found in the Database"));
+
+        if (customer.toString().isEmpty()) {
             if (customerDTO.getName() != null) {
                 customer.setName(customerDTO.getName());
             }
@@ -64,12 +64,30 @@ public class customerServiceImpl implements customerService {
             if(customerDTO.getOther_customer_data() != null){
                 customer.setOther_customer_data(customerDTO.getOther_customer_data());
             }
+            if(customerDTO.getStatus() != null){
+                customer.setStatus(customerDTO.getStatus());
+            }
 
 
         }
-//        return null;
-        assert customer != null;
         return customerMapper.toDto(customerRepository.save(customer));
+    }
+
+    @Override
+    public String statusToggle(long id, String status){
+        customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Customer with ID " + id + " not found in the Database"));
+        if (!status.equalsIgnoreCase("enabled") && !status.equalsIgnoreCase("disabled")) {
+            throw new IllegalArgumentException("Invalid status value: " + status);
+        }
+        else{
+            customer.setStatus(status);
+        }
+
+
+        customerRepository.save(customer);
+        return "Customer details " +status+ " successfully";
+
     }
 }
 
