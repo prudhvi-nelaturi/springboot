@@ -10,13 +10,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.javaTest.springboot_sample.service.customerService;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("api/v1/customers")
 public class sampleController {
 
     @Autowired
     private customerService customerService;
-
 
     @GetMapping("/welcome")
     @ResponseStatus(HttpStatus.OK)
@@ -77,6 +78,28 @@ public class sampleController {
         return ResponseEntity.ok(customerService.statusToggle(id, status));
 
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<Map<String, Object>> searchCustomers(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String customer_email,
+            @RequestParam(required = false) String industry,
+            @RequestParam(required = false) Integer company_size,
+            @RequestParam(required = false) String customer_phone_number,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String customer_address,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int limit
+    ) {
+        Map<String, Object> response = customerService.searchCustomers(
+                name, customer_email, industry, company_size, customer_phone_number, status, customer_address, page, limit);
+        return ResponseEntity.ok(response);
+    }
+
+
+
+
+
 
 
 
