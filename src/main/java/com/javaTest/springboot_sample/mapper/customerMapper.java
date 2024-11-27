@@ -24,18 +24,18 @@ public class customerMapper {
     }
 
     public customer toEntity(customerDTO dto){
-        customer cust = new customer();
+        customer customer = new customer();
 
-        cust.setId(dto.getId());
-        cust.setName(dto.getName());
-        cust.setIndustry(dto.getIndustry());
-        cust.setCompany_size(dto.getCompany_size());
-        cust.setCustomer_email(dto.getCustomer_email());
-        cust.setCustomer_phone_number(dto.getCustomer_phone_number());
-        cust.setCustomer_address(dto.getCustomer_address());
-        cust.setOther_customer_data(dto.getOther_customer_data());
-        cust.setStatus(dto.getStatus());
+        customer.setId(dto.getId());
+        customer.setName(dto.getName());
+        customer.setIndustry(dto.getIndustry());
+        customer.setCompany_size(dto.getCompany_size());
+        customer.setCustomer_email(dto.getCustomer_email());
+        customer.setCustomer_phone_number(dto.getCustomer_phone_number());
+        customer.setCustomer_address(dto.getCustomer_address());
+        customer.setOther_customer_data(dto.getOther_customer_data());
+        customer.setStatus(dto.getStatus());
 
-        return cust;
+        return customer;
     }
 }
